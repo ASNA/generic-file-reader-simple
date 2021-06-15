@@ -44,15 +44,7 @@
       <div class="highlight"><pre>    <span class="nx">BegSr</span> <span class="nx">OpenForRead</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span> 
         <span class="nx">DclSrParm</span> <span class="nx">DBName</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> 
         <span class="nx">DclSrParm</span> <span class="nx">Library</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> 
-        <span class="nx">DclSrParm</span> <span class="nx">File</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span>
-
-        <span class="nx">DGDB</span> <span class="o">=</span> <span class="o">*</span><span class="nx">New</span> <span class="nx">AdgConnection</span><span class="p">(</span><span class="nx">DBName</span><span class="p">)</span> 
-        <span class="nx">DGFile</span> <span class="o">=</span> <span class="o">*</span><span class="nx">New</span> <span class="nx">FileAdapter</span><span class="p">(</span><span class="nx">DGDB</span><span class="p">,</span> <span class="nb">String</span><span class="p">.</span><span class="nx">Format</span><span class="p">(</span><span class="s1">&#39;{0}/{1}&#39;</span><span class="p">,</span> <span class="nx">Library</span><span class="p">,</span> <span class="nx">File</span><span class="p">))</span>
-        <span class="nx">DGFile</span><span class="p">.</span><span class="nx">OpenAttributes</span><span class="p">.</span><span class="nx">BlockingFactor</span> <span class="o">=</span> <span class="nx">FileOpenAttr</span><span class="p">.</span><span class="nx">OptimalBlockingFactor</span>
-        <span class="nx">DGFile</span><span class="p">.</span><span class="nx">AccessMode</span> <span class="o">=</span> <span class="nx">AccessMode</span><span class="p">.</span><span class="nx">Read</span>
-
-        <span class="nx">DGFile</span><span class="p">.</span><span class="nx">OpenNewAdgDataSet</span><span class="p">(</span><span class="o">*</span><span class="nx">ByRef</span> <span class="nx">DGDS</span><span class="p">)</span>
-    <span class="nx">EndSr</span></pre></div>
+        <span class="nx">DclSrParm</span> <span class="nx">File</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -61,26 +53,10 @@
       <div class='octowrap'>
         <a class='octothorpe' href='#section-2'>#</a>
       </div>
-      <p>Read entire file.</p>
+      <p>Instance DB connection.</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>    <span class="nx">BegSr</span> <span class="nx">ReadEntireFile</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span> 
-        <span class="nx">DclSrParm</span> <span class="nx">DBName</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> 
-        <span class="nx">DclSrParm</span> <span class="nx">Library</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> 
-        <span class="nx">DclSrParm</span> <span class="nx">File</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span>
-        <span class="nx">DclSrParm</span> <span class="nx">FieldNames</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> <span class="nx">Rank</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-
-        <span class="nx">OpenForRead</span><span class="p">(</span><span class="nx">DBName</span><span class="p">,</span> <span class="nx">Library</span><span class="p">,</span> <span class="nx">File</span><span class="p">)</span> 
-
-        <span class="nx">DoWhile</span> <span class="nx">ReadNextRecord</span><span class="p">()</span>
-            <span class="nx">ForEach</span> <span class="nx">FieldName</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> <span class="nx">Collection</span><span class="p">(</span><span class="nx">FieldNames</span><span class="p">)</span> 
-                <span class="nx">Console</span><span class="p">.</span><span class="nx">WriteLine</span><span class="p">(</span><span class="nx">DGDS</span><span class="p">.</span><span class="nx">ActiveRow</span><span class="p">[</span><span class="nx">FieldName</span><span class="p">])</span>
-            <span class="nx">EndFor</span> 
-        <span class="nx">EndDO</span> 
-
-        <span class="nx">DGFile</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span> <span class="c1">// Close file.</span>
-        <span class="nx">DGDB</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>   <span class="c1">// Close connection. </span>
-    <span class="nx">EndSr</span></pre></div>
+      <div class="highlight"><pre>        <span class="nx">DGDB</span> <span class="o">=</span> <span class="o">*</span><span class="nx">New</span> <span class="nx">AdgConnection</span><span class="p">(</span><span class="nx">DBName</span><span class="p">)</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -89,20 +65,186 @@
       <div class='octowrap'>
         <a class='octothorpe' href='#section-3'>#</a>
       </div>
+      <p>Instance file object.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="nx">DGFile</span> <span class="o">=</span> <span class="o">*</span><span class="nx">New</span> <span class="nx">FileAdapter</span><span class="p">(</span><span class="nx">DGDB</span><span class="p">,</span> <span class="nb">String</span><span class="p">.</span><span class="nx">Format</span><span class="p">(</span><span class="s1">&#39;{0}/{1}&#39;</span><span class="p">,</span> <span class="nx">Library</span><span class="p">,</span> <span class="nx">File</span><span class="p">))</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-4'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-4'>#</a>
+      </div>
+      <p>Set read-only with optimal record blocking.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="nx">DGFile</span><span class="p">.</span><span class="nx">AccessMode</span> <span class="o">=</span> <span class="nx">AccessMode</span><span class="p">.</span><span class="nx">Read</span>
+        <span class="nx">DGFile</span><span class="p">.</span><span class="nx">OpenAttributes</span><span class="p">.</span><span class="nx">BlockingFactor</span> <span class="o">=</span> <span class="nx">FileOpenAttr</span><span class="p">.</span><span class="nx">OptimalBlockingFactor</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-5'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-5'>#</a>
+      </div>
+      <p>Open a new AdgDataSet. </p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="nx">DGFile</span><span class="p">.</span><span class="nx">OpenNewAdgDataSet</span><span class="p">(</span><span class="o">*</span><span class="nx">ByRef</span> <span class="nx">DGDS</span><span class="p">)</span>
+    <span class="nx">EndSr</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-6'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-6'>#</a>
+      </div>
+      <p>Read entire file.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="nx">BegSr</span> <span class="nx">ReadEntireFile</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span> 
+        <span class="nx">DclSrParm</span> <span class="nx">DBName</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> 
+        <span class="nx">DclSrParm</span> <span class="nx">Library</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> 
+        <span class="nx">DclSrParm</span> <span class="nx">File</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span>
+        <span class="nx">DclSrParm</span> <span class="nx">FieldNames</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> <span class="nx">Rank</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-7'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-7'>#</a>
+      </div>
+      <p>Open the DataGate file.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="nx">OpenForRead</span><span class="p">(</span><span class="nx">DBName</span><span class="p">,</span> <span class="nx">Library</span><span class="p">,</span> <span class="nx">File</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-8'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-8'>#</a>
+      </div>
+      <p>Read all records. </p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="nx">DoWhile</span> <span class="nx">ReadNextRecord</span><span class="p">()</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-9'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-9'>#</a>
+      </div>
+      <p>For each file name provided, show the field value.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>            <span class="nx">ForEach</span> <span class="nx">FieldName</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> <span class="nx">Collection</span><span class="p">(</span><span class="nx">FieldNames</span><span class="p">)</span> 
+                <span class="nx">Console</span><span class="p">.</span><span class="nx">WriteLine</span><span class="p">(</span><span class="nx">DGDS</span><span class="p">.</span><span class="nx">ActiveRow</span><span class="p">[</span><span class="nx">FieldName</span><span class="p">])</span>
+            <span class="nx">EndFor</span> 
+        <span class="nx">EndDO</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-10'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-10'>#</a>
+      </div>
+      <p>Close file.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="nx">DGFile</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-11'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-11'>#</a>
+      </div>
+      <p>Close DB connection.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="nx">DGDB</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>   
+    <span class="nx">EndSr</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-12'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-12'>#</a>
+      </div>
       <p>Read next available record. 
 Return <em>True if record read; otherwise return </em>False.</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>    <span class="nx">BegFunc</span> <span class="nx">ReadNextRecord</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">Boolean</span><span class="p">)</span>        
-        <span class="nx">DGDS</span><span class="p">.</span><span class="nx">Tables</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">Clear</span><span class="p">()</span> <span class="c1">// Don&#39;t accumulate rows in the DataSet.</span>
+      <div class="highlight"><pre>    <span class="nx">BegFunc</span> <span class="nx">ReadNextRecord</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">Boolean</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-13'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-13'>#</a>
+      </div>
+      <p>ReadSequential doesn&rsquo;t know about EOF&ndash;it throws a DataGate
+exception when there are no more records to read. 
+This function puts an EOF-friendly wrapper around ReadSequential.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-14'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-14'>#</a>
+      </div>
+      <p>Don&rsquo;t accumulate rows in the DataSet.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="nx">DGDS</span><span class="p">.</span><span class="nx">Tables</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">Clear</span><span class="p">()</span> 
         <span class="nx">Try</span>
             <span class="nx">DGFile</span><span class="p">.</span><span class="nx">ReadSequential</span><span class="p">(</span><span class="nx">DGDS</span><span class="p">,</span> <span class="nx">ReadSequentialMode</span><span class="p">.</span><span class="nx">Next</span><span class="p">,</span> <span class="nx">LockRequest</span><span class="p">.</span><span class="nx">Read</span><span class="p">)</span>
             <span class="nx">LeaveSr</span> <span class="o">*</span><span class="nx">True</span>
-        <span class="nx">Catch</span> <span class="nx">DgEx</span> <span class="nx">Type</span><span class="p">(</span><span class="nx">dgException</span><span class="p">)</span> 
-            <span class="nx">If</span> <span class="p">(</span><span class="nx">DgEx</span><span class="p">.</span><span class="nb">Error</span> <span class="o">=</span> <span class="nx">dgErrorNumber</span><span class="p">.</span><span class="nx">dgEaEOF</span><span class="p">)</span>
+        <span class="nx">Catch</span> <span class="nx">DgEx</span> <span class="nx">Type</span><span class="p">(</span><span class="nx">dgException</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-15'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-15'>#</a>
+      </div>
+      <p>If EOF, swallow exception and return *False, 
+which indicates EOF has been reached.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>            <span class="nx">If</span> <span class="p">(</span><span class="nx">DgEx</span><span class="p">.</span><span class="nb">Error</span> <span class="o">=</span> <span class="nx">dgErrorNumber</span><span class="p">.</span><span class="nx">dgEaEOF</span><span class="p">)</span>
                 <span class="nx">LeaveSr</span> <span class="o">*</span><span class="nx">False</span> 
-            <span class="nx">Else</span>
-                <span class="nx">Throw</span> <span class="nx">DgEx</span>           
+            <span class="nx">Else</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-16'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-16'>#</a>
+      </div>
+      <p>Otherwise rethrow error exception. </p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>                <span class="nx">Throw</span> <span class="nx">DgEx</span>           
             <span class="nx">EndIf</span>
         <span class="nx">EndTry</span>    
     <span class="nx">EndFunc</span> 
