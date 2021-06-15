@@ -5,12 +5,14 @@ BegClass Program
     BegSr Main Shared(*Yes) Access(*Public) Attributes(System.STAThread())
         DclSrParm args Type(*String) Rank(1)
 
+        // Instance the DataGateHelper class.
         DclFld dgh Type(DataGateHelper) New() 
 
         DclArray FieldNames Type(*String) Rank(1) 
-
+        // Create an array of field names for which the values should be shown.
         FieldNames = *New String[] {'CMName', 'CMAddr1'} 
 
+        // Read the file specified. 
         dgh.ReadEntireFile('*Public/DG Net Local', 'Examples', 'CMastNewL2', FieldNames) 
 
         Console.WriteLine('Press any key to continue...') 

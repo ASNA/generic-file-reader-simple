@@ -15,11 +15,14 @@ BegClass DataGateHelper
         DclSrParm Library Type(*String) 
         DclSrParm File Type(*String)
 
+        // Instance DB connection.
         DGDB = *New AdgConnection(DBName) 
+        // Instance file object.
         DGFile = *New FileAdapter(DGDB, String.Format('{0}/{1}', Library, File))
-        DGFile.OpenAttributes.BlockingFactor = FileOpenAttr.OptimalBlockingFactor
+        // Set read-only with optimal record blocking.
         DGFile.AccessMode = AccessMode.Read
-
+        DGFile.OpenAttributes.BlockingFactor = FileOpenAttr.OptimalBlockingFactor
+        // Open a new AdgDataSet. 
         DGFile.OpenNewAdgDataSet(*ByRef DGDS)
     EndSr
 
@@ -30,29 +33,42 @@ BegClass DataGateHelper
         DclSrParm File Type(*String)
         DclSrParm FieldNames Type(*String) Rank(1)
 
+        // Open the DataGate file.
         OpenForRead(DBName, Library, File) 
 
+        // Read all records. 
         DoWhile ReadNextRecord()
+            // For each file name provided, show the field value.
             ForEach FieldName Type(*String) Collection(FieldNames) 
                 Console.WriteLine(DGDS.ActiveRow[FieldName])
             EndFor 
         EndDO 
 
-        DGFile.Close() // Close file.
-        DGDB.Close()   // Close connection. 
+        // Close file.
+        DGFile.Close() 
+        // Close DB connection.
+        DGDB.Close()   
     EndSr
 
     // Read next available record. 
     // Return *True if record read; otherwise return *False.
     BegFunc ReadNextRecord Type(*Boolean)        
-        DGDS.Tables[0].Clear() // Don't accumulate rows in the DataSet.
+        // ReadSequential doesn't know about EOF--it throws a DataGate
+        // exception when there are no more records to read. 
+        // This function puts an EOF-friendly wrapper around ReadSequential.
+
+        // Don't accumulate rows in the DataSet.
+        DGDS.Tables[0].Clear() 
         Try
             DGFile.ReadSequential(DGDS, ReadSequentialMode.Next, LockRequest.Read)
             LeaveSr *True
         Catch DgEx Type(dgException) 
+            // If EOF, swallow exception and return *False, 
+            // which indicates EOF has been reached.
             If (DgEx.Error = dgErrorNumber.dgEaEOF)
                 LeaveSr *False 
             Else
+                // Otherwise rethrow error exception. 
                 Throw DgEx           
             EndIf
         EndTry    
