@@ -1,0 +1,20 @@
+﻿Using System
+
+
+BegClass Program
+    BegSr Main Shared(*Yes) Access(*Public) Attributes(System.STAThread())
+        DclSrParm args Type(*String) Rank(1)
+
+        DclFld dgh Type(DataGateHelper) New() 
+
+        DclArray FieldNames Type(*String) Rank(1) 
+
+        FieldNames = *New String[] {'CMName', 'CMAddr1'} 
+
+        dgh.ReadEntireFile('*Public/DG Net Local', 'Examples', 'CMastNewL2', FieldNames) 
+
+        Console.WriteLine('Press any key to continue...') 
+        Console.ReadKey()
+    EndSr
+EndClass
+

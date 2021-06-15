@@ -1,0 +1,60 @@
+﻿Using System
+Using System.Text
+Using ASNA.DataGate.Client
+Using ASNA.DataGate.Common
+Using ASNA.DataGate.Providers
+
+BegClass DataGateHelper
+    DclFld DGDB     Type(AdgConnection) 
+    DclFld DGFile   Type(FileAdapter)     
+    DclFld DGDS     Type(AdgDataSet) 
+
+    // Open file for read-only use.        
+    BegSr OpenForRead Access(*Public) 
+        DclSrParm DBName Type(*String) 
+        DclSrParm Library Type(*String) 
+        DclSrParm File Type(*String)
+
+        DGDB = *New AdgConnection(DBName) 
+        DGFile = *New FileAdapter(DGDB, String.Format('{0}/{1}', Library, File))
+        DGFile.OpenAttributes.BlockingFactor = FileOpenAttr.OptimalBlockingFactor
+        DGFile.AccessMode = AccessMode.Read
+
+        DGFile.OpenNewAdgDataSet(*ByRef DGDS)
+    EndSr
+
+    // Read entire file.
+    BegSr ReadEntireFile Access(*Public) 
+        DclSrParm DBName Type(*String) 
+        DclSrParm Library Type(*String) 
+        DclSrParm File Type(*String)
+        DclSrParm FieldNames Type(*String) Rank(1)
+
+        OpenForRead(DBName, Library, File) 
+
+        DoWhile ReadNextRecord()
+            ForEach FieldName Type(*String) Collection(FieldNames) 
+                Console.WriteLine(DGDS.ActiveRow[FieldName])
+            EndFor 
+        EndDO 
+
+        DGFile.Close() // Close file.
+        DGDB.Close()   // Close connection. 
+    EndSr
+
+    // Read next available record. 
+    // Return *True if record read; otherwise return *False.
+    BegFunc ReadNextRecord Type(*Boolean)        
+        DGDS.Tables[0].Clear() // Don't accumulate rows in the DataSet.
+        Try
+            DGFile.ReadSequential(DGDS, ReadSequentialMode.Next, LockRequest.Read)
+            LeaveSr *True
+        Catch DgEx Type(dgException) 
+            If (DgEx.Error = dgErrorNumber.dgEaEOF)
+                LeaveSr *False 
+            Else
+                Throw DgEx           
+            EndIf
+        EndTry    
+    EndFunc 
+EndClass

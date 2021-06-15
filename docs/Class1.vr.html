@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>Class1.vr</title>
+  <link rel="stylesheet" href="pycco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div class='section'>
+    <div class='docs'><h1>Class1.vr</h1></div>
+  </div>
+  <div class='clearall'>
+  <div class='section' id='section-0'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-0'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span></span><span class="nx">Using</span> <span class="nx">System</span>
+
+
+<span class="nx">BegClass</span> <span class="nx">Program</span>
+    <span class="nx">BegSr</span> <span class="nx">Main</span> <span class="nx">Shared</span><span class="p">(</span><span class="o">*</span><span class="nx">Yes</span><span class="p">)</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span> <span class="nx">Attributes</span><span class="p">(</span><span class="nx">System</span><span class="p">.</span><span class="nx">STAThread</span><span class="p">())</span>
+        <span class="nx">DclSrParm</span> <span class="nx">args</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> <span class="nx">Rank</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="nx">DclFld</span> <span class="nx">dgh</span> <span class="nx">Type</span><span class="p">(</span><span class="nx">DataGateHelper</span><span class="p">)</span> <span class="nx">New</span><span class="p">()</span> 
+
+        <span class="nx">DclArray</span> <span class="nx">FieldNames</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> <span class="nx">Rank</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> 
+
+        <span class="nx">FieldNames</span> <span class="o">=</span> <span class="o">*</span><span class="nx">New</span> <span class="nb">String</span><span class="p">[]</span> <span class="p">{</span><span class="s1">&#39;CMName&#39;</span><span class="p">,</span> <span class="s1">&#39;CMAddr1&#39;</span><span class="p">}</span> 
+
+        <span class="nx">dgh</span><span class="p">.</span><span class="nx">ReadEntireFile</span><span class="p">(</span><span class="s1">&#39;*Public/DG Net Local&#39;</span><span class="p">,</span> <span class="s1">&#39;Examples&#39;</span><span class="p">,</span> <span class="s1">&#39;CMastNewL2&#39;</span><span class="p">,</span> <span class="nx">FieldNames</span><span class="p">)</span> 
+
+        <span class="nx">Console</span><span class="p">.</span><span class="nx">WriteLine</span><span class="p">(</span><span class="s1">&#39;Press any key to continue...&#39;</span><span class="p">)</span> 
+        <span class="nx">Console</span><span class="p">.</span><span class="nx">ReadKey</span><span class="p">()</span>
+    <span class="nx">EndSr</span>
+<span class="nx">EndClass</span>
+
+</pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+</div>
+</body>
