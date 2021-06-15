@@ -38,7 +38,7 @@ BegClass DataGateHelper
 
         // Read all records. 
         DoWhile ReadNextRecord()
-            // For each file name provided, show the field value.
+            // For each field name provided, show the field value.
             ForEach FieldName Type(*String) Collection(FieldNames) 
                 Console.WriteLine(DGDS.ActiveRow[FieldName])
             EndFor 
